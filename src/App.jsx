@@ -8,7 +8,8 @@ export default function App() {
   const [error, setError] = useState('')
   const [category, setCategory] = useState('전체')
   const [keyword, setKeyword] = useState('')
-  const [selectedId, setSelectedId] = useState(null)
+  // 3D 지도에서 "?spot=cheonjiyeon" 으로 들어오면 그 관광지를 바로 펼칩니다.
+  const [selectedId, setSelectedId] = useState(() => new URLSearchParams(window.location.search).get('spot'))
 
   useEffect(() => {
     fetch('/api/visitors')
@@ -34,6 +35,12 @@ export default function App() {
 
   const selected = SPOTS.find((s) => s.id === selectedId)
 
+  // 주소의 ?spot= 으로 들어왔을 때, 통계가 도착하면 한 번 상세 위치로 스크롤
+  useEffect(() => {
+    if (data && selected) setTimeout(() => document.getElementById('detail')?.scrollIntoView({ block: 'start' }), 100)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
+
   const select = (id) => {
     setSelectedId(id)
     setTimeout(() => document.getElementById('detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
@@ -44,6 +51,7 @@ export default function App() {
       <header className="hero">
         <h1>🌋 서귀포 관광지 예상 관광객</h1>
         <p>직영관광지 6곳의 월별 관람객 통계로 이번 달 붐빌 곳을 가늠해 보세요.</p>
+        <a className="btn3d" href="/map3d.html">🗺️ 3D 입체 지도로 보기</a>
         <input className="search" type="search" value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="관광지 검색 (예: 폭포, 감귤)" aria-label="관광지 검색" />
       </header>
 

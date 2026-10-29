@@ -50,3 +50,6 @@ button { font: inherit; }
   .detail-grid { grid-template-columns: 1fr; }
   .map { height: 280px; }
 }
+
+.btn3d { display: inline-block; margin-top: 18px; padding: 10px 20px; border-radius: 999px; background: #fff; color: var(--main); font-weight: 700; text-decoration: none; box-shadow: 0 2px 10px rgba(0,0,0,.2); }
+.btn3d:hover { background: #ecfeff; }

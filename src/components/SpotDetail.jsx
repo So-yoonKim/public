@@ -7,7 +7,7 @@ export default function SpotDetail({ spot, stats }) {
   return (
     <section className="detail" id="detail">
       <h2>{spot.emoji} {spot.name}</h2>
-      <p className="muted">{spot.desc}</p>
+      <p className="muted">{spot.desc} <a href={`/map3d.html?focus=${spot.id}`}>3D 지도에서 보기 →</a></p>
       <div className="detail-grid">
         <NaverMap spot={spot} />
         <div className="trend">
